@@ -3,8 +3,8 @@ package main
 import (
 	"echo-golang/config"
 	handler_product "echo-golang/handler/handlerProduct"
+	"echo-golang/injector/injectorRepository"
 	"echo-golang/pkg/logs"
-	"echo-golang/repository/repository_product"
 	"echo-golang/service/service_product"
 	"net/http"
 
@@ -17,8 +17,9 @@ func main() {
 	if err != nil {
 		return
 	}
-	repositoryProduct := repository_product.NewRepositoryProduct(db, logging)
-	serviceProduct := service_product.NewServiceProduct(repositoryProduct, logging)
+	rp := injectorRepository.NewInjectorRepository(db, logging)
+	// repositoryProduct := repository_product.NewRepositoryProduct(db, logging)
+	serviceProduct := service_product.NewServiceProduct(rp, logging)
 	handlerProduct := handler_product.NewHandler(serviceProduct, logging)
 	e := echo.New()
 

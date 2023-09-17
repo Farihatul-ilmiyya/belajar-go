@@ -7,7 +7,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 )
-
+//go:generate mockery --name RepositoryProduct
 type RepositoryProduct interface {
 	Create(product product.Product) (product.Product, error)
 }

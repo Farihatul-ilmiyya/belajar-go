@@ -1,4 +1,4 @@
-package service_product
+package servicenanda
 
 import (
 	"echo-golang/injector/injectorRepository"
@@ -10,20 +10,20 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type ServiceProduct interface {
+type ServiceProductNanda interface {
 	Create(request product.RequestProduct) (product.ResponseProduct, int, error)
 }
 
-type service_product struct {
+type service_product_nanda struct {
 	repository injectorRepository.RepositoryInjector
 	logging    *logrus.Logger
 }
 
-func NewServiceProduct(repository injectorRepository.RepositoryInjector, logging *logrus.Logger) *service_product {
-	return &service_product{repository: repository, logging: logging}
+func NewServiceProduct(repository injectorRepository.RepositoryInjector, logging *logrus.Logger) *service_product_nanda {
+	return &service_product_nanda{repository: repository, logging: logging}
 }
 
-func (s *service_product) Create(request product.RequestProduct) (product.ResponseProduct, int, error) {
+func (s *service_product_nanda) Create(request product.RequestProduct) (product.ResponseProduct, int, error) {
 	s.logging.Info("User memasukkan input")
 	time.Sleep(5 * time.Second)
 	s.logging.Info("melakukan formatting")
@@ -35,7 +35,7 @@ func (s *service_product) Create(request product.RequestProduct) (product.Respon
 	}
 	time.Sleep(5 * time.Second)
 	s.logging.Info("mengirim data ke repository")
-	result, err := s.repository.RepositoryProduct.Create(reqFormatter)
+	result, err := s.repository.RepositoryProductNanda.Create(reqFormatter)
 	if err != nil {
 		s.logging.Error("error create product ", err)
 		return product.ResponseProduct{}, http.StatusInternalServerError, errors.New("something want wrong")
